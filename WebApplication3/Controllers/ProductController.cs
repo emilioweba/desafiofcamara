@@ -17,7 +17,7 @@ namespace DesafioFCamara.Controllers
         [AcceptVerbs("POST")]
         public IEnumerable<Product> GetAll(MyToken token)
         {
-            var myChannelFactory = new ChannelFactory<IDesafioFCamaraWCF>(new WebHttpBinding(), 
+            var myChannelFactory = new ChannelFactory<IDesafioFCamaraWCF>(new WebHttpBinding(),
                 "http://www.emilioweba.com/DesafioFCamaraWCF.svc");
 
             myChannelFactory.Endpoint.Behaviors.Add(new WebHttpBehavior());
@@ -35,7 +35,7 @@ namespace DesafioFCamara.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (client != null)
                 {

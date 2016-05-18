@@ -7,49 +7,37 @@
     <div class="col-md-4">
         <label>Token: <span id="tokenValue">@(Model.MyToken != null ? Model.MyToken.Token : "XXXXX-XXXXX-XXXXX-XXXX")</span></label>
         <label>Token expira em <span id="time">1</span> <span id="unit">minuto</span></label>
+        @Html.Hidden("tokenExpirationDate")
+        <label id="message"></label>
     </div>
 </div>
 <hr>
 <div class="row">
     <div>
-        <a href="http://asp.net" class="btn btn-primary btn-lg">Buscar Produtos MVC</a>
-        <a href="http://asp.net" class="btn btn-primary btn-lg">Buscar Produtos Ajax</a>
+        <a id="buscarMVC" data-bind="click: getProductListMVC" class="btn btn-primary btn-lg">Buscar Produtos MVC</a>
+        <a id="buscarAjax" data-bind="click: getProductListAjax" class="btn btn-primary btn-lg">Buscar Produtos Ajax</a>
     </div>
     <br />
-    <div>
-        <table>
+
+    <table>
+        <thead>
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>Preço</th>
             </tr>
-            @if (Model.ProductList != null)
-            {
-                foreach (var item in Model.ProductList)
-                {
-                    <tr>
-                        <td>@item.ProductId</td>
-                        <td>@item.ProductName</td>
-                        <td>@item.ProductDescricao</td>
-                        <td>@item.ProductPrice</td>
-                    </tr>
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    <tr>
-                        <td>Label</td>
-                        <td>Label</td>
-                        <td>Label</td>
-                        <td>Label</td>
-                    </tr>
-                }
-            }
-        </table>
-    </div>
+        </thead>
+        <tbody data-bind="foreach: productList">
+            <tr>
+                <td data-bind="text: ProductId"></td>
+                <td data-bind="text: ProductName"></td>
+                <td data-bind="text: ProductDescricao"></td>
+                <td data-bind="text: ProductPrice"></td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <script src="~/Scripts/App/Home.js"></script>

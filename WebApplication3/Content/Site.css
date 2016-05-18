@@ -33,3 +33,8 @@ table {
 th {
     background-color: lightslategrey;
 }
+
+#message {
+    color: red;
+    margin-top: 5%;
+}
