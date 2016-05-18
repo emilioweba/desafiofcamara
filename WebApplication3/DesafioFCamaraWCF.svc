@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DesafioFCamaraWCF.DesafioFCamaraWCF" CodeBehind="DesafioFCamaraWCF.svc.cs" %>
