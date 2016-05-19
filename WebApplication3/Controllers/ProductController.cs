@@ -27,11 +27,11 @@ namespace DesafioFCamara.Controllers
             try
             {
                 client = myChannelFactory.CreateChannel();
-                if (client.ValidateToken(token.TimeCreated.ToString()) == HttpStatusCode.Accepted)
+                if (client.ValidateToken(token.TimeCreated.ToString()) == HttpStatusCode.Accepted) // valida o token
                 {
                     using (var context = new ApplicationContext())
                     {
-                        return context.Products.ToList();
+                        return context.Products.ToList(); // retorna todos os produtos
                     }
                 }
             }

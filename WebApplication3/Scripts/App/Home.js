@@ -20,7 +20,6 @@ function HomeIndexViewModel() {
     self.ProductPrice = ko.observable();
 
     self.getProductListAjax = function () {
-        self.productList.removeAll(); // zera o array
         $('#message').text('');
 
         var paramData = new MyToken($('#tokenValue').text(),
@@ -28,16 +27,20 @@ function HomeIndexViewModel() {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:23742/api/product/", // Web API
+            url: "http://www.emilioweba.com/api/product/", // Web API
             data: JSON.stringify(paramData),
             contentType: 'application/json'
         }).success(function (data) {
+            self.productList.removeAll(); // zera o array
+
             if (data != null) {
+                $('#table').fadeOut(100).fadeIn(100);
+
                 $.each(data, function (i, item) {
                     self.productList.push(new productViewModel(item)); // popula observable array
                 });
             }
-            else {
+            else { // caso nao retorne nada, popular com valores default
                 for (var i = 0; i < 4; i++) {
                     self.productList.push(new productViewModel({
                         ProductId: "Label",
@@ -60,18 +63,22 @@ function HomeIndexViewModel() {
             $("#tokenExpirationDate").val()); // passando token e sua data
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:23742/api/product/'); // Web API
+        xhr.open('POST', 'http://www.emilioweba.com/api/product/'); // Web API
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.send(JSON.stringify(paramData));
 
         xhr.onreadystatechange = function (data) {
             if (xhr.readyState == 4 && xhr.status == 200) {
+                self.productList.removeAll(); // zera o array
+
                 if (data.srcElement.response != "null") {
+                    $('#table').fadeOut(100).fadeIn(100);
+
                     $.each(JSON.parse(data.srcElement.response), function (i, item) {
                         self.productList.push(new productViewModel(item)); // popula observable array
                     });
                 }
-                else {
+                else { // caso nao retorne nada, popular com valores default
                     for (var i = 0; i < 4; i++) {
                         self.productList.push(new productViewModel({
                             ProductId: "Label",
@@ -100,7 +107,7 @@ $('#gerarToken').click(function () {
     clearInterval(interval);
     $('#message').text('');
 
-    $.get("http://localhost:23742/Home/GenerateToken", function (data) {
+    $.get("http://www.emilioweba.com/Home/GenerateToken", function (data) {
         $('#tokenValue').text(data.Token); // atribui o valor do token na View
         $("#tokenExpirationDate").val(data.TimeCreated); // atribui o valor da data de expiracao na View
 

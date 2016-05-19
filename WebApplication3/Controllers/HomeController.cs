@@ -20,13 +20,6 @@ namespace DesafioFCamara.Controllers
             return View(new HomeViewModel());
         }
 
-        //public ActionResult Index(HomeViewModel vm)
-        //{
-        //    ViewBag.Title = "Home Page";
-
-        //    return View(vm);
-        //}
-
         public JsonResult GenerateToken()
         {
             var myChannelFactory = new ChannelFactory<IDesafioFCamaraWCF>(new WebHttpBinding(),
@@ -36,7 +29,7 @@ namespace DesafioFCamara.Controllers
 
             try
             {
-                return Json(myChannelFactory.CreateChannel().GenerateToken(), JsonRequestBehavior.AllowGet);
+                return Json(myChannelFactory.CreateChannel().GenerateToken(), JsonRequestBehavior.AllowGet); // gera token
             }
             catch
             {
